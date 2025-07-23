@@ -12,9 +12,19 @@
  A super simple color hex and color name lookup tool
 </p>
 
+## About
+
+I decided to create this first to text my capabilities before diving into a larger project when this will likely be used. I normally use bootstrap for UI stuff, but had heard great stuff about Tailwind CSS. But it gave me a lot of headaches since you can't use their CDN for production. This web app serves it locally instead of using a CDN.
+
 
 ---
 
 ## Demo
 
 [Colormatic Demo Site](https://tools.mydesigncrate.net/colormatic).
+
+## Dependencies
+
+[Tailwind CSS](https://github.com/tailwindlabs/tailwindcss)
+[Color Name API](https://github.com/meodai/color-name-api)
+
