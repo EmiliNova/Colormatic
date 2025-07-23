@@ -17,6 +17,8 @@ $input = $_GET['color'] ?? '';
 $colorData = null;
 $suggestionText = '';
 $error = '';
+$exactMiss = false;
+$searchedHex = '';
 
 if ($input) {
 	$q = trim($input);
@@ -28,13 +30,15 @@ if ($input) {
 	// HEX lookup
 	if (preg_match('/^[0-9a-fA-F]{3,6}$/', $q)) {
 		$hex = strtolower($q);
+		$searchedHex = '#' . $hex;
 		$resp = @file_get_contents("https://api.color.pizza/v1/{$hex}");
 		if ($resp !== false) {
 			$js = json_decode($resp, true);
 			$colorData = $js['colors'][0] ?? null;
-			// if exact hex not found, API returns nearest; notify user
+			// notify if API didn't find exact
 			if ($colorData && ltrim(strtolower($colorData['hex']), '#') !== $hex) {
-				$suggestionText = 'Exact match not found; showing closest color ' . htmlspecialchars($colorData['hex']);
+				$exactMiss = true;
+				$suggestionText = 'Exact match not found';
 			}
 		}
 	} else {
@@ -102,6 +106,7 @@ if ($input) {
 	<?php if ($error): ?>
 	  <p class="text-red-500 mb-2"><?= htmlspecialchars($error) ?></p>
 	<?php endif; ?>
+
 	<form method="GET" class="mb-6 flex justify-center items-center space-x-2">
 	  <input name="color"
 			 id="search"
@@ -121,9 +126,12 @@ if ($input) {
 		<p class="text-sm text-gray-600 mb-2"><?= $suggestionText ?></p>
 	  <?php endif; ?>
 
-	  <h2 class="text-2xl font-semibold">
-		<?= htmlspecialchars($colorData['name']) ?> – <?= htmlspecialchars($colorData['hex']) ?>
-	  </h2>
+	  <?php if ($exactMiss): ?>
+		<h2 class="text-2xl font-semibold"><?= htmlspecialchars($searchedHex) ?></h2>
+	  <?php else: ?>
+		<h2 class="text-2xl font-semibold"><?= htmlspecialchars($colorData['name']) ?> – <?= htmlspecialchars($colorData['requestedHex'] ?? $colorData['hex']) ?></h2>
+	  <?php endif; ?>
+
 	  <div class="w-16 h-16 mx-auto mt-2 mb-4" style="background-color: <?= htmlspecialchars($colorData['hex']) ?>"></div>
 
 	  <h3 class="font-medium mb-2">5 Closest Colors</h3>
