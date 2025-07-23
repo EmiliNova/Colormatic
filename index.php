@@ -99,12 +99,12 @@ if ($useBg && $colorData) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Colormatic - A Super Simple Color Hex & Name Lookup Tool</title>
-  <link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="fav/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="fav/favicon.svg" />
+  <link rel="shortcut icon" href="fav/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="fav/apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
-  <link href="tailwind.min.css" rel="stylesheet">
+  <link href="css/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="<?= $bodyClass ?>" style="<?= $bodyStyle ?>">
   <div class="flex-1 flex flex-col items-center justify-center w-full max-w-lg mx-auto text-center">
